@@ -3,7 +3,8 @@ import React from 'react';
 
 
 const Store = props => {
-    return (
+    console.log("props1:" + props.value)
+    return ( 
       <div>
         <Container>
           <Grid>
