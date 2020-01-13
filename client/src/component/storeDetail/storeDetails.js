@@ -5,15 +5,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
-<<<<<<< HEAD
 import  { getSpotsQuery } from '../../queries/queries';
 import { graphql } from 'react-apollo';
-=======
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-//import InfoIcon from '@material-ui/icons/Info';
-//import tileData from './tileData';
->>>>>>> a6731c3a7f78b14f413e44c8090b53b54ce77903
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,30 +15,15 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-<<<<<<< HEAD
   },
   gridList: {
     width: 500,
     height: 450,
   },
-=======
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-  },
->>>>>>> a6731c3a7f78b14f413e44c8090b53b54ce77903
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
 }));
-<<<<<<< HEAD
-=======
-
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
-});
->>>>>>> a6731c3a7f78b14f413e44c8090b53b54ce77903
 
 const tileData = [
   {
@@ -80,51 +58,9 @@ const tileData = [
   }
 ];
 
-<<<<<<< HEAD
 const  TitlebarGridList= props => {
   const classes = useStyles();
  console.log("las props:" + props)
-=======
-//import image from 'path/to/image.jpg';
-
-
-const tileData = [
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'Image',
-    author: 'author',
-  },
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'Que mira',
-    author: 'author',
-  },
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'jijue',
-    author: 'author',
-  },
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'Image',
-    author: 'author',
-  },
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'Image',
-    author: 'caco',
-  },
-  {
-    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
-    title: 'Image',
-    author: 'cat',
-  }
-];
-
-export default function TitlebarGridList() {
-  const classes = useStyles();
-
->>>>>>> a6731c3a7f78b14f413e44c8090b53b54ce77903
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
@@ -148,9 +84,5 @@ export default function TitlebarGridList() {
       </GridList>
     </div>
   );
-<<<<<<< HEAD
 }
 export default graphql(getSpotsQuery)(TitlebarGridList)
-=======
-}
->>>>>>> a6731c3a7f78b14f413e44c8090b53b54ce77903
