@@ -10,6 +10,13 @@ const { gql } = require('apollo-server-lambda');
     code: String
     name: String
     distance: String
+    avaiableLunchDay: String
+    menus:[Menu!]!
+  }
+  type Menu {
+    id: ID
+    Description: String
+    price: String
   }
 `;
 module.exports = typDef;

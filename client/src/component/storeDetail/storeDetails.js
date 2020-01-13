@@ -1,51 +1,88 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import rows from "./rowsData";
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import  { getSpotsQuery } from '../../queries/queries';
+import { graphql } from 'react-apollo';
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
   },
-});
+  gridList: {
+    width: 500,
+    height: 450,
+  },
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
+  },
+}));
 
+const tileData = [
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'Image',
+    author: 'author',
+  },
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'Que mira',
+    author: 'author',
+  },
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'jijue',
+    author: 'author',
+  },
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'Image',
+    author: 'author',
+  },
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'Image',
+    author: 'caco',
+  },
+  {
+    img: 'https://pbs.twimg.com/profile_images/943515859728896000/wrdqzQq5_400x400.jpg',
+    title: 'Image',
+    author: 'cat',
+  }
+];
 
-const SimpleTable = props =>  {
+const  TitlebarGridList= props => {
   const classes = useStyles();
-  console.log("propp =" + props.value)
+ console.log("las props:" + props)
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Adress</TableCell>
-            <TableCell align="right">Distance&nbsp;(g)</TableCell>
-            <TableCell align="right">avaiableLunchDay&nbsp;(g)</TableCell>
-            <TableCell align="right">Menus&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.adress}</TableCell>
-              <TableCell align="right">{row.adress}</TableCell>
-              <TableCell align="right">{row.avaiableLunchDay}</TableCell>
-              <TableCell align="right">{row.menu}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className={classes.root}>
+      <GridList cellHeight={180} className={classes.gridList}>
+        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+          <ListSubheader component="div">Spots</ListSubheader>
+        </GridListTile>
+        {tileData.map(tile => (
+          <GridListTile key={tile.img}>
+            <img src={tile.img} alt={tile.title} />
+            <GridListTileBar
+              title={tile.title}
+              subtitle={<span>by: {tile.author}</span>}
+              actionIcon={
+                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
+                 
+                </IconButton>
+              }
+            />
+          </GridListTile>
+        ))}
+      </GridList>
+    </div>
   );
 }
-export default SimpleTable;
+export default graphql(getSpotsQuery)(TitlebarGridList)

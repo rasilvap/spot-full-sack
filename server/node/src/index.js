@@ -1,5 +1,6 @@
 const {ApolloServer, gql} = require('apollo-server-lambda');
 const { buildFederatedSchema } = require('@apollo/federation');
+const cors = require('cors');
 
 const modules = [
   require('./schemas/spots')
@@ -14,6 +15,7 @@ const modules = [
 //}));
 
 const server = new ApolloServer({ schema: buildFederatedSchema(modules)});
+//server.use(cors());
 exports.graphqlHandler = server.createHandler();
 
 
