@@ -10,7 +10,8 @@ const { gql } = require('apollo-server-lambda');
     code: String
     name: String
     distance: String
-    avaiableLunchDay: String
+    avaiableLunchDay: String,
+    img: String,
     menus:[Menu!]!
   }
   type Menu {

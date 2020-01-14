@@ -2,6 +2,14 @@ import { Container, Grid, MenuItem } from '@material-ui/core';
 import React, { Component } from 'react';
 import Store from '../component/store/store'
 import StoreDetails from "../component/storeDetail/storeDetails";
+import { getSpotsQuery } from '../queries/queries';
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import { graphql } from 'react-apollo';
 
 function createData(name, adress, distance, avaiableLunchDay, menu) {
     return { name, adress, distance, avaiableLunchDay, menu };
@@ -34,9 +42,6 @@ class StoreBuilder extends Component {
             createData('Gingerbread', 356, 16.0, 49, 'Watch menu'),
         ]
     }
-    //  this.renderDivisionOptions = this.renderDivisionOptions.bind(this);
-
-
 
     handleChangeDivision = event => {
         this.setState({ DivisionState: event.target.value });
@@ -55,6 +60,58 @@ class StoreBuilder extends Component {
         });
     }
 
+    displaySpots = () => {
+        const useStyles = makeStyles(theme => ({
+            root: {
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                overflow: 'hidden',
+                backgroundColor: theme.palette.background.paper,
+            },
+            gridList: {
+                width: 500,
+                height: 450,
+            },
+            icon: {
+                color: 'rgba(255, 255, 255, 0.54)',
+            },
+        }));
+
+        const classes = useStyles();
+        var data = this.props.data
+        console.log(data);
+        if (data.loading) {
+            return (<div>Loading books...</div>);
+        } else {
+            if (data.spots !== undefined) {
+                return (
+                    <div className={classes.root}>
+                        <GridList cellHeight={180} className={classes.gridList}>
+                            <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+                                <ListSubheader component="div">Spots</ListSubheader>
+                            </GridListTile>
+                            {data.spots.map(spot => (
+                                <GridListTile key={spot.id}>
+                                    <img src={spot.img} alt={spot.title} />
+                                    <GridListTileBar
+                                        title={spot.name}
+                                        subtitle={<span>by: {spot.author}</span>}
+                                        actionIcon={
+                                            <IconButton aria-label={`info about ${spot.title}`} className={classes.icon}>
+
+                                            </IconButton>
+                                        }
+                                    />
+                                </GridListTile>
+                            ))}
+                        </GridList>
+                    </div>
+                );
+            }
+        }
+    }
+
     render() {
         return (
             <div>
@@ -66,11 +123,11 @@ class StoreBuilder extends Component {
                             render={this.renderDivisionOptions}
                         /></Grid>
                     <Grid>
-                        <StoreDetails value={this.state.DivisionState}></StoreDetails>
+                        <StoreDetails showSpots={this.displaySpots}></StoreDetails>
                     </Grid>
                 </Container>
             </div>
         );
     }
 }
-export default StoreBuilder;
+export default graphql(getSpotsQuery)(StoreBuilder)
